@@ -1,6 +1,12 @@
 import React, { FC, ReactElement } from "react"
 
-import { AppBar, Toolbar, useScrollTrigger } from "@material-ui/core"
+import {
+  AppBar,
+  Toolbar,
+  useScrollTrigger,
+  Typography,
+  makeStyles,
+} from "@material-ui/core"
 
 const ElevationScroll: FC = ({ children }) => {
   const trigger = useScrollTrigger({
@@ -13,12 +19,25 @@ const ElevationScroll: FC = ({ children }) => {
   })
 }
 
+const useStyles = makeStyles(theme => ({
+  toolbarMargin: {
+    ...theme.mixins.toolbar,
+  },
+}))
+
 export const Header: FC = () => {
+  const classes = useStyles()
+
   return (
-    <ElevationScroll>
-      <AppBar>
-        <Toolbar>Arc Development</Toolbar>
-      </AppBar>
-    </ElevationScroll>
+    <>
+      <ElevationScroll>
+        <AppBar>
+          <Toolbar>
+            <Typography>Arc Development</Typography>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+      <div className={classes.toolbarMargin} />
+    </>
   )
 }
