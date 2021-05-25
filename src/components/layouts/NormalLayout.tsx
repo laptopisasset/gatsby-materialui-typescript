@@ -1,7 +1,7 @@
 import React, { FC } from "react"
-import { Footer, Header } from "./ui"
+import { Footer, Header } from "../ui"
 
-const Layout: FC = props => {
+export const NormalLayout: FC = props => {
   return (
     <div>
       <Header />
@@ -10,5 +10,3 @@ const Layout: FC = props => {
     </div>
   )
 }
-
-export default Layout
