@@ -2,6 +2,7 @@ import React, { FC } from "react"
 import { Helmet } from "react-helmet"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { ThemeProvider } from "@material-ui/core/styles"
+
 import theme from "../../src/theme"
 
 const TopLayout: FC = props => {
