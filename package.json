@@ -6,9 +6,13 @@
     "@material-ui/core": "latest",
     "@material-ui/styles": "latest",
     "gatsby": "latest",
+    "gatsby-plugin-image": "^1.5.0",
     "gatsby-plugin-material-ui": "latest",
     "gatsby-plugin-react-helmet": "latest",
+    "gatsby-plugin-sharp": "^3.5.0",
     "gatsby-plugin-typescript": "^3.5.0",
+    "gatsby-source-filesystem": "^3.5.0",
+    "gatsby-transformer-sharp": "^3.5.0",
     "react": "latest",
     "react-dom": "latest",
     "react-helmet": "latest"
