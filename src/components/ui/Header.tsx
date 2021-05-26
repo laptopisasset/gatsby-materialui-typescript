@@ -8,12 +8,8 @@ import {
   Tabs,
   Tab,
   Button,
-  Popper,
-  Grow,
-  Paper,
-  ClickAwayListener,
+  Menu,
   MenuItem,
-  MenuList,
 } from "@material-ui/core"
 
 import { Link } from "../ui"
@@ -102,7 +98,16 @@ export const Header: FC<{
 }> = ({ location, navigate }) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
-  const anchorRef = useRef<HTMLAnchorElement>(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+
+  const handleClick: React.MouseEventHandler = event => {
+    setAnchorEl(event.currentTarget as HTMLElement)
+    setOpen(true)
+  }
+  const handleClose: React.MouseEventHandler = () => {
+    setAnchorEl(null)
+    setOpen(false)
+  }
 
   const handleEstimateClick: React.MouseEventHandler = () => {
     navigate("/estimate")
@@ -146,12 +151,10 @@ export const Header: FC<{
                 className={classes.tab}
                 component={Link}
                 to="/services"
-                onMouseOver={handleMouseOver}
-                onMouseOut={handleMouseOut}
-                aria-controls={open ? "menu-list-grow" : undefined}
-                aria-haspopup="true"
+                aria-owns={anchorEl ? "simple-menu" : undefined}
+                aria-haspopup={anchorEl ? "true" : undefined}
+                onMouseOver={handleClick}
               />
-              {/* Poper for services Tab */}
 
               <Tab
                 label="The Revolution"
@@ -180,6 +183,41 @@ export const Header: FC<{
             >
               Free Estimate
             </Button>
+
+            {/* Menu Component for Services Menu */}
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              open={open}
+              MenuListProps={{
+                onMouseLeave: handleClose,
+              }}
+            >
+              <MenuItem onClick={handleClose} component={Link} to="/services">
+                Services
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/services/customsoftware"
+              >
+                Custom Software Development
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/services/mobileapps"
+              >
+                Mobile App Development
+              </MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="/services/websites"
+              >
+                Website Development
+              </MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
