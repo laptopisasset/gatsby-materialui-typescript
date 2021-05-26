@@ -9,6 +9,8 @@ const TopLayout: FC = props => {
   return (
     <React.Fragment>
       <Helmet>
+        <meta charSet="utf-8" />
+
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -17,6 +19,8 @@ const TopLayout: FC = props => {
           href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
           rel="stylesheet"
         />
+
+        <title>Arc Development</title>
       </Helmet>
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
