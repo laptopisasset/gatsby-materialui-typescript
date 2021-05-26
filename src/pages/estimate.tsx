@@ -5,7 +5,7 @@ import { NormalLayout } from "../components/layouts"
 import { PageProps } from "gatsby"
 
 const Estimate: FC<PageProps> = props => (
-  <NormalLayout {...props}>The Revoluition</NormalLayout>
+  <NormalLayout {...props}>Free Estimate</NormalLayout>
 )
 
 export default Estimate

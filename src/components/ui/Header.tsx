@@ -10,6 +10,8 @@ import {
   Button,
 } from "@material-ui/core"
 
+import { Link } from "../ui"
+
 import logo from "../../images/logo.svg"
 
 const ElevationScroll: FC = ({ children }) => {
@@ -38,6 +40,10 @@ const useStyles = makeStyles(theme => ({
     ...theme.typography.tab,
     minWidth: 10,
     marginLeft: "25px",
+
+    "&:hover": {
+      textDecoration: "none",
+    },
   },
   button: {
     ...theme.typography.estimate,
@@ -45,15 +51,44 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "50px",
     marginRight: "25px",
     height: "45px",
+
+    "&:hover": {
+      textDecoration: "none",
+    },
   },
 }))
 
-export const Header: FC<{ location: PageProps["location"] }> = ({
-  location,
-}) => {
+const decideActiveTab = (curentPath: string) => {
+  switch (curentPath) {
+    case "/":
+      return 0
+
+    case "/services":
+      return 1
+
+    case "/revolution":
+      return 2
+
+    case "/about":
+      return 3
+
+    case "/contact":
+      return 4
+
+    default:
+      return 0
+  }
+}
+
+export const Header: FC<{
+  location: PageProps["location"]
+  navigate: PageProps["navigate"]
+}> = ({ location, navigate }) => {
   const classes = useStyles()
 
-  console.log({ location })
+  const handleEstimateClick: React.MouseEventHandler = () => {
+    navigate("/estimate")
+  }
 
   return (
     <>
@@ -61,17 +96,47 @@ export const Header: FC<{ location: PageProps["location"] }> = ({
         <AppBar>
           <Toolbar disableGutters>
             <img src={logo} alt="company logo" className={classes.logo} />
-            <Tabs className={classes.tabContainer}>
-              <Tab label="Home" className={classes.tab} />
-              <Tab label="Services" className={classes.tab} />
-              <Tab label="The Revolution" className={classes.tab} />
-              <Tab label="About Us" className={classes.tab} />
-              <Tab label="Contact Us" className={classes.tab} />
+            <Tabs
+              value={decideActiveTab(location.pathname)}
+              className={classes.tabContainer}
+              indicatorColor="primary"
+            >
+              <Tab
+                label="Home"
+                className={classes.tab}
+                component={Link}
+                to="/"
+              />
+              <Tab
+                label="Services"
+                className={classes.tab}
+                component={Link}
+                to="/services"
+              />
+              <Tab
+                label="The Revolution"
+                className={classes.tab}
+                component={Link}
+                to="/revolution"
+              />
+              <Tab
+                label="About Us"
+                className={classes.tab}
+                component={Link}
+                to="/about"
+              />
+              <Tab
+                label="Contact Us"
+                className={classes.tab}
+                component={Link}
+                to="/contact"
+              />
             </Tabs>
             <Button
               variant="contained"
               color="secondary"
               className={classes.button}
+              onClick={handleEstimateClick}
             >
               Free Estimate
             </Button>
