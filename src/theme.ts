@@ -11,6 +11,16 @@ declare module "@material-ui/core/styles/createPalette" {
   }
 }
 
+declare module "@material-ui/core/styles/createTypography" {
+  interface TypographyOptions {
+    tab: TypographyStyleOptions
+  }
+
+  interface Typography {
+    tab: TypographyStyleOptions
+  }
+}
+
 /**
  * Theme Constants
  */
@@ -35,6 +45,14 @@ const theme = createMuiTheme({
     },
     background: {
       default: "#fff",
+    },
+  },
+  typography: {
+    tab: {
+      fontFamily: "Raleway",
+      textTransform: "none",
+      fontWeight: 700,
+      fontSize: "1rem",
     },
   },
 })

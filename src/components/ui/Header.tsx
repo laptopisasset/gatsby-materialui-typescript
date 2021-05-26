@@ -33,6 +33,11 @@ const useStyles = makeStyles(theme => ({
   tabContainer: {
     marginLeft: "auto",
   },
+  tab: {
+    ...theme.typography.tab,
+    minWidth: 10,
+    marginLeft: "25px",
+  },
 }))
 
 export const Header: FC = () => {
@@ -45,11 +50,11 @@ export const Header: FC = () => {
           <Toolbar disableGutters>
             <img src={logo} alt="company logo" className={classes.logo} />
             <Tabs className={classes.tabContainer}>
-              <Tab label="Home" />
-              <Tab label="Services" />
-              <Tab label="The Revolution" />
-              <Tab label="About Us" />
-              <Tab label="Contact Us" />
+              <Tab label="Home" className={classes.tab} />
+              <Tab label="Services" className={classes.tab} />
+              <Tab label="The Revolution" className={classes.tab} />
+              <Tab label="About Us" className={classes.tab} />
+              <Tab label="Contact Us" className={classes.tab} />
             </Tabs>
           </Toolbar>
         </AppBar>
