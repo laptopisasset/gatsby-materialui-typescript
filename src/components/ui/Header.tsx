@@ -1,5 +1,5 @@
 import React, { FC, ReactElement } from "react"
-
+import { PageProps } from "gatsby"
 import {
   AppBar,
   Toolbar,
@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core"
 
 import logo from "../../images/logo.svg"
-import { PageProps } from "gatsby"
 
 const ElevationScroll: FC = ({ children }) => {
   const trigger = useScrollTrigger({
