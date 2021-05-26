@@ -1,11 +1,16 @@
 import React, { FC } from "react"
 import { Footer, Header } from "../ui"
 
-export const NormalLayout: FC = props => {
+import { PageProps } from "gatsby"
+
+export const NormalLayout: FC<{ location: PageProps["location"] }> = ({
+  children,
+  ...rest
+}) => {
   return (
     <div>
-      <Header />
-      <main>{props.children}</main>
+      <Header {...rest} />
+      <main>{children}</main>
       <Footer />
     </div>
   )

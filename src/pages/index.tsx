@@ -1,7 +1,11 @@
-import React from "react"
+import React, { FC } from "react"
 
 import { NormalLayout } from "../components/layouts"
 
-export default function Index() {
-  return <NormalLayout>Hello</NormalLayout>
+import { PageProps } from "gatsby"
+
+const Index: FC<PageProps> = props => {
+  return <NormalLayout {...props}>Hello</NormalLayout>
 }
+
+export default Index

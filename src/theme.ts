@@ -14,10 +14,12 @@ declare module "@material-ui/core/styles/createPalette" {
 declare module "@material-ui/core/styles/createTypography" {
   interface TypographyOptions {
     tab: TypographyStyleOptions
+    estimate: TypographyStyleOptions
   }
 
   interface Typography {
     tab: TypographyStyleOptions
+    estimate: TypographyStyleOptions
   }
 }
 
@@ -53,6 +55,12 @@ const theme = createMuiTheme({
       textTransform: "none",
       fontWeight: 700,
       fontSize: "1rem",
+    },
+    estimate: {
+      fontFamily: "Pacifico",
+      fontSize: "1rem",
+      textTransform: "none",
+      color: "white",
     },
   },
 })
