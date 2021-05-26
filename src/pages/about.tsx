@@ -1,6 +1,10 @@
-import React from "react"
+import React, { FC } from "react"
+import { PageProps } from "gatsby"
+
 import { NormalLayout } from "../components/layouts"
 
-export default function About() {
-  return <NormalLayout>About</NormalLayout>
-}
+const About: FC<PageProps> = props => (
+  <NormalLayout {...props}>About</NormalLayout>
+)
+
+export default About

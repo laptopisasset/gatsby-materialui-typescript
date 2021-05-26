@@ -4,8 +4,8 @@ import { NormalLayout } from "../components/layouts"
 
 import { PageProps } from "gatsby"
 
-const Index: FC<PageProps> = props => (
-  <NormalLayout {...props}>Home</NormalLayout>
+const Estimate: FC<PageProps> = props => (
+  <NormalLayout {...props}>The Revoluition</NormalLayout>
 )
 
-export default Index
+export default Estimate

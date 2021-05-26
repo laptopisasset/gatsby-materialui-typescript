@@ -4,8 +4,8 @@ import { NormalLayout } from "../components/layouts"
 
 import { PageProps } from "gatsby"
 
-const Index: FC<PageProps> = props => (
-  <NormalLayout {...props}>Home</NormalLayout>
+const Contact: FC<PageProps> = props => (
+  <NormalLayout {...props}>Contact</NormalLayout>
 )
 
-export default Index
+export default Contact

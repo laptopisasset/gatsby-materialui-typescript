@@ -48,8 +48,12 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export const Header: FC<{ location: PageProps["location"] }> = () => {
+export const Header: FC<{ location: PageProps["location"] }> = ({
+  location,
+}) => {
   const classes = useStyles()
+
+  console.log({ location })
 
   return (
     <>
