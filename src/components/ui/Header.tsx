@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState, useRef } from "react"
+import React, { FC, ReactElement, useState, useRef, useEffect } from "react"
 import { PageProps } from "gatsby"
 import {
   AppBar,
@@ -8,6 +8,12 @@ import {
   Tabs,
   Tab,
   Button,
+  Popper,
+  Grow,
+  Paper,
+  ClickAwayListener,
+  MenuItem,
+  MenuList,
 } from "@material-ui/core"
 
 import { Link } from "../ui"
@@ -71,6 +77,9 @@ const decideActiveTab = (curentPath: string) => {
       return 0
 
     case "/services":
+    case "/services/mobileapps":
+    case "/services/websites":
+    case "/services/customsoftware":
       return 1
 
     case "/revolution":
@@ -99,6 +108,14 @@ export const Header: FC<{
     navigate("/estimate")
   }
 
+  const handleMouseOver: React.MouseEventHandler = () => {
+    setOpen(true)
+  }
+
+  const handleMouseOut: React.MouseEventHandler = () => {
+    setOpen(false)
+  }
+
   return (
     <>
       <ElevationScroll>
@@ -123,12 +140,19 @@ export const Header: FC<{
                 component={Link}
                 to="/"
               />
+
               <Tab
                 label="Services"
                 className={classes.tab}
                 component={Link}
                 to="/services"
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
+                aria-controls={open ? "menu-list-grow" : undefined}
+                aria-haspopup="true"
               />
+              {/* Poper for services Tab */}
+
               <Tab
                 label="The Revolution"
                 className={classes.tab}
