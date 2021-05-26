@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react"
+import React, { FC, ReactElement, useState, useRef } from "react"
 import { PageProps } from "gatsby"
 import {
   AppBar,
@@ -28,10 +28,10 @@ const ElevationScroll: FC = ({ children }) => {
 const useStyles = makeStyles(theme => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
-    marginBottom: "3em",
+    marginBottom: "4em",
   },
   logo: {
-    height: "7em",
+    height: "8em",
   },
   tabContainer: {
     marginLeft: "auto",
@@ -43,6 +43,13 @@ const useStyles = makeStyles(theme => ({
 
     "&:hover": {
       textDecoration: "none",
+    },
+  },
+  logoContainer: {
+    padding: 0,
+
+    "&:hover": {
+      backgroundColor: "transparent",
     },
   },
   button: {
@@ -85,6 +92,8 @@ export const Header: FC<{
   navigate: PageProps["navigate"]
 }> = ({ location, navigate }) => {
   const classes = useStyles()
+  const [open, setOpen] = useState(false)
+  const anchorRef = useRef<HTMLAnchorElement>(null)
 
   const handleEstimateClick: React.MouseEventHandler = () => {
     navigate("/estimate")
@@ -95,7 +104,14 @@ export const Header: FC<{
       <ElevationScroll>
         <AppBar>
           <Toolbar disableGutters>
-            <img src={logo} alt="company logo" className={classes.logo} />
+            <Button
+              component={Link}
+              to="/"
+              className={classes.logoContainer}
+              disableRipple
+            >
+              <img src={logo} alt="company logo" className={classes.logo} />
+            </Button>
             <Tabs
               value={decideActiveTab(location.pathname)}
               className={classes.tabContainer}
