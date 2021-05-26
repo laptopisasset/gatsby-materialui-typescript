@@ -15,9 +15,10 @@ const TopLayout: FC = props => {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+
         <link
-          href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
           rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Pacifico|Raleway:100,400,400i,700|Roboto:300,400,500,700&display=swap"
         />
 
         <title>Arc Development</title>

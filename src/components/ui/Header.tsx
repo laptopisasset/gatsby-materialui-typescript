@@ -4,8 +4,9 @@ import {
   AppBar,
   Toolbar,
   useScrollTrigger,
-  Typography,
   makeStyles,
+  Tabs,
+  Tab,
 } from "@material-ui/core"
 
 import logo from "../../images/logo.svg"
@@ -29,6 +30,9 @@ const useStyles = makeStyles(theme => ({
   logo: {
     height: "7em",
   },
+  tabContainer: {
+    marginLeft: "auto",
+  },
 }))
 
 export const Header: FC = () => {
@@ -40,6 +44,13 @@ export const Header: FC = () => {
         <AppBar>
           <Toolbar disableGutters>
             <img src={logo} alt="company logo" className={classes.logo} />
+            <Tabs className={classes.tabContainer}>
+              <Tab label="Home" />
+              <Tab label="Services" />
+              <Tab label="The Revolution" />
+              <Tab label="About Us" />
+              <Tab label="Contact Us" />
+            </Tabs>
           </Toolbar>
         </AppBar>
       </ElevationScroll>
