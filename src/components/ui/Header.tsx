@@ -95,6 +95,17 @@ const useStyles = makeStyles(theme => ({
     height: "50px",
     width: "50px",
   },
+  menu: {
+    backgroundColor: theme.palette.common.blue,
+    ...theme.typography.tab,
+  },
+  menuItem: {
+    color: "white",
+    opacity: 0.7,
+  },
+  menuItemSelected: {
+    opacity: 1,
+  },
 }))
 
 const decideActiveTab = (curentPath: string) => {
@@ -150,22 +161,22 @@ export const Header: FC<{
     navigate("/estimate")
   }
 
-  const menu = [
+  const menuList = [
     {
       name: "Services",
-      link: "/services",
+      to: "/services",
     },
     {
       name: "Custom Software",
-      link: "/services/customsoftware",
+      to: "/services/customsoftware",
     },
     {
       name: "Mobile App Development",
-      link: "/services/mobileapps",
+      to: "/services/mobileapps",
     },
     {
       name: "Website",
-      link: "/services/websites",
+      to: "/services/websites",
     },
   ]
 
@@ -208,36 +219,6 @@ export const Header: FC<{
         {tabList.map((tab: any, index) => (
           <Tab {...tab} key={index} component={Link} className={classes.tab} />
         ))}
-        {/* <Tab label="Home" className={classes.tab} component={Link} to="/" />
-
-        <Tab
-          label="Services"
-          className={classes.tab}
-          component={Link}
-          to="/services"
-          aria-owns={anchorEl ? "simple-menu" : undefined}
-          aria-haspopup={anchorEl ? "true" : undefined}
-          onMouseOver={handleClick}
-        />
-
-        <Tab
-          label="The Revolution"
-          className={classes.tab}
-          component={Link}
-          to="/revolution"
-        />
-        <Tab
-          label="About Us"
-          className={classes.tab}
-          component={Link}
-          to="/about"
-        />
-        <Tab
-          label="Contact Us"
-          className={classes.tab}
-          component={Link}
-          to="/contact"
-        /> */}
       </Tabs>
       <Button
         variant="contained"
@@ -256,31 +237,23 @@ export const Header: FC<{
         MenuListProps={{
           onMouseLeave: handleClose,
         }}
+        classes={{ paper: classes.menu }}
       >
-        <MenuItem onClick={handleClose} component={Link} to="/services">
-          Services
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          component={Link}
-          to="/services/customsoftware"
-        >
-          Custom Software Development
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          component={Link}
-          to="/services/mobileapps"
-        >
-          Mobile App Development
-        </MenuItem>
-        <MenuItem
-          onClick={handleClose}
-          component={Link}
-          to="/services/websites"
-        >
-          Website Development
-        </MenuItem>
+        {menuList.map((menu, index) => (
+          <MenuItem
+            onClick={handleClose}
+            key={index}
+            component={Link}
+            to={menu.to}
+            selected={menu.to === location.pathname}
+            classes={{
+              root: classes.menuItem,
+              selected: classes.menuItemSelected,
+            }}
+          >
+            {menu.name}
+          </MenuItem>
+        ))}
       </Menu>
     </>
   )
