@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState, useRef, useEffect } from "react"
+import React, { FC, ReactElement, useState } from "react"
 import { PageProps } from "gatsby"
 import {
   AppBar,
@@ -10,7 +10,11 @@ import {
   Button,
   Menu,
   MenuItem,
+  useMediaQuery,
+  useTheme,
+  SwipeableDrawer,
 } from "@material-ui/core"
+import { Menu as MenuIcon } from "@material-ui/core"
 
 import { Link } from "../ui"
 
@@ -30,10 +34,22 @@ const ElevationScroll: FC = ({ children }) => {
 const useStyles = makeStyles(theme => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
-    marginBottom: "4em",
+    marginBottom: "3em",
+    [theme.breakpoints.down("md")]: {
+      marginBottom: "2em",
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "1.25em",
+    },
   },
   logo: {
     height: "8em",
+    [theme.breakpoints.down("md")]: {
+      height: "7em",
+    },
+    [theme.breakpoints.down("xs")]: {
+      height: "5.5em",
+    },
   },
   tabContainer: {
     marginLeft: "auto",
@@ -99,6 +115,8 @@ export const Header: FC<{
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.down("md"))
 
   const handleClick: React.MouseEventHandler = event => {
     setAnchorEl(event.currentTarget as HTMLElement)
@@ -113,13 +131,89 @@ export const Header: FC<{
     navigate("/estimate")
   }
 
-  const handleMouseOver: React.MouseEventHandler = () => {
-    setOpen(true)
-  }
+  const tabs = (
+    <>
+      <Tabs
+        value={decideActiveTab(location.pathname)}
+        className={classes.tabContainer}
+        indicatorColor="primary"
+      >
+        <Tab label="Home" className={classes.tab} component={Link} to="/" />
 
-  const handleMouseOut: React.MouseEventHandler = () => {
-    setOpen(false)
-  }
+        <Tab
+          label="Services"
+          className={classes.tab}
+          component={Link}
+          to="/services"
+          aria-owns={anchorEl ? "simple-menu" : undefined}
+          aria-haspopup={anchorEl ? "true" : undefined}
+          onMouseOver={handleClick}
+        />
+
+        <Tab
+          label="The Revolution"
+          className={classes.tab}
+          component={Link}
+          to="/revolution"
+        />
+        <Tab
+          label="About Us"
+          className={classes.tab}
+          component={Link}
+          to="/about"
+        />
+        <Tab
+          label="Contact Us"
+          className={classes.tab}
+          component={Link}
+          to="/contact"
+        />
+      </Tabs>
+      <Button
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        onClick={handleEstimateClick}
+      >
+        Free Estimate
+      </Button>
+
+      {/* Menu Component for Services Menu */}
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        open={open}
+        MenuListProps={{
+          onMouseLeave: handleClose,
+        }}
+      >
+        <MenuItem onClick={handleClose} component={Link} to="/services">
+          Services
+        </MenuItem>
+        <MenuItem
+          onClick={handleClose}
+          component={Link}
+          to="/services/customsoftware"
+        >
+          Custom Software Development
+        </MenuItem>
+        <MenuItem
+          onClick={handleClose}
+          component={Link}
+          to="/services/mobileapps"
+        >
+          Mobile App Development
+        </MenuItem>
+        <MenuItem
+          onClick={handleClose}
+          component={Link}
+          to="/services/websites"
+        >
+          Website Development
+        </MenuItem>
+      </Menu>
+    </>
+  )
 
   return (
     <>
@@ -134,90 +228,7 @@ export const Header: FC<{
             >
               <img src={logo} alt="company logo" className={classes.logo} />
             </Button>
-            <Tabs
-              value={decideActiveTab(location.pathname)}
-              className={classes.tabContainer}
-              indicatorColor="primary"
-            >
-              <Tab
-                label="Home"
-                className={classes.tab}
-                component={Link}
-                to="/"
-              />
-
-              <Tab
-                label="Services"
-                className={classes.tab}
-                component={Link}
-                to="/services"
-                aria-owns={anchorEl ? "simple-menu" : undefined}
-                aria-haspopup={anchorEl ? "true" : undefined}
-                onMouseOver={handleClick}
-              />
-
-              <Tab
-                label="The Revolution"
-                className={classes.tab}
-                component={Link}
-                to="/revolution"
-              />
-              <Tab
-                label="About Us"
-                className={classes.tab}
-                component={Link}
-                to="/about"
-              />
-              <Tab
-                label="Contact Us"
-                className={classes.tab}
-                component={Link}
-                to="/contact"
-              />
-            </Tabs>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              onClick={handleEstimateClick}
-            >
-              Free Estimate
-            </Button>
-
-            {/* Menu Component for Services Menu */}
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              open={open}
-              MenuListProps={{
-                onMouseLeave: handleClose,
-              }}
-            >
-              <MenuItem onClick={handleClose} component={Link} to="/services">
-                Services
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/services/customsoftware"
-              >
-                Custom Software Development
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/services/mobileapps"
-              >
-                Mobile App Development
-              </MenuItem>
-              <MenuItem
-                onClick={handleClose}
-                component={Link}
-                to="/services/websites"
-              >
-                Website Development
-              </MenuItem>
-            </Menu>
+            {matches ? null : tabs}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
