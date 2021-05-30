@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { Helmet } from "react-helmet"
-import CssBaseline from "@material-ui/core/CssBaseline"
+
 import { ThemeProvider } from "@material-ui/core/styles"
 
 import theme from "../../src/theme"
@@ -23,11 +23,7 @@ const TopLayout: FC = props => {
 
         <title>Arc Development</title>
       </Helmet>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        {props.children}
-      </ThemeProvider>
+      <ThemeProvider theme={theme}>{props.children}</ThemeProvider>
     </React.Fragment>
   )
 }

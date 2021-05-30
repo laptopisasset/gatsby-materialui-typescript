@@ -13,8 +13,9 @@ import {
   useMediaQuery,
   useTheme,
   SwipeableDrawer,
+  IconButton,
 } from "@material-ui/core"
-import { Menu as MenuIcon } from "@material-ui/core"
+import { Menu as MenuIcon } from "@material-ui/icons"
 
 import { Link } from "../ui"
 
@@ -81,6 +82,16 @@ const useStyles = makeStyles(theme => ({
       textDecoration: "none",
     },
   },
+  drawerIconContainer: {
+    marginLeft: "auto",
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  },
+  drawerIcon: {
+    height: "50px",
+    width: "50px",
+  },
 }))
 
 const decideActiveTab = (curentPath: string) => {
@@ -118,6 +129,7 @@ export const Header: FC<{
 
   const classes = useStyles()
   const [openMenu, setOpenMenu] = useState(false)
+  const [openDrawer, setOpenDrawer] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down("md"))
@@ -219,6 +231,27 @@ export const Header: FC<{
     </>
   )
 
+  const drawer = (
+    <>
+      <SwipeableDrawer
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        onOpen={() => setOpenDrawer(true)}
+      >
+        Example Drawer
+      </SwipeableDrawer>
+      <IconButton
+        onClick={() => setOpenDrawer(open => !open)}
+        disableRipple
+        className={classes.drawerIconContainer}
+      >
+        <MenuIcon className={classes.drawerIcon} />
+      </IconButton>
+    </>
+  )
+
   return (
     <>
       <ElevationScroll>
@@ -232,7 +265,7 @@ export const Header: FC<{
             >
               <img src={logo} alt="company logo" className={classes.logo} />
             </Button>
-            {matches ? null : tabs}
+            {matches ? drawer : tabs}
           </Toolbar>
         </AppBar>
       </ElevationScroll>
