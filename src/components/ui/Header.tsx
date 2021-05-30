@@ -14,6 +14,9 @@ import {
   useTheme,
   SwipeableDrawer,
   IconButton,
+  List,
+  ListItem,
+  ListItemText,
 } from "@material-ui/core"
 import { Menu as MenuIcon } from "@material-ui/icons"
 
@@ -147,6 +150,54 @@ export const Header: FC<{
     navigate("/estimate")
   }
 
+  const menu = [
+    {
+      name: "Services",
+      link: "/services",
+    },
+    {
+      name: "Custom Software",
+      link: "/services/customsoftware",
+    },
+    {
+      name: "Mobile App Development",
+      link: "/services/mobileapps",
+    },
+    {
+      name: "Website",
+      link: "/services/websites",
+    },
+  ]
+
+  const ariaOwns = anchorEl ? "simple-menu" : undefined
+  const ariaHasPopup = anchorEl ? "true" : undefined
+
+  const tabList = [
+    {
+      label: "Home",
+      to: "/",
+    },
+    {
+      label: "Services",
+      to: "/services",
+      "aria-owns": ariaOwns,
+      "aria-haspopup": ariaHasPopup,
+      onMouseOver: handleClick,
+    },
+    {
+      label: "The Revolution",
+      to: "/revolution",
+    },
+    {
+      label: "About Us",
+      to: "/about",
+    },
+    {
+      label: "Contact Us",
+      to: "/contact",
+    },
+  ]
+
   const tabs = (
     <>
       <Tabs
@@ -154,7 +205,10 @@ export const Header: FC<{
         className={classes.tabContainer}
         indicatorColor="primary"
       >
-        <Tab label="Home" className={classes.tab} component={Link} to="/" />
+        {tabList.map((tab: any, index) => (
+          <Tab {...tab} key={index} component={Link} className={classes.tab} />
+        ))}
+        {/* <Tab label="Home" className={classes.tab} component={Link} to="/" />
 
         <Tab
           label="Services"
@@ -183,7 +237,7 @@ export const Header: FC<{
           className={classes.tab}
           component={Link}
           to="/contact"
-        />
+        /> */}
       </Tabs>
       <Button
         variant="contained"
@@ -240,7 +294,7 @@ export const Header: FC<{
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
       >
-        Example Drawer
+        <List></List>
       </SwipeableDrawer>
       <IconButton
         onClick={() => setOpenDrawer(open => !open)}
