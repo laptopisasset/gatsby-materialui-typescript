@@ -112,19 +112,23 @@ export const Header: FC<{
   location: PageProps["location"]
   navigate: PageProps["navigate"]
 }> = ({ location, navigate }) => {
+  const iOS =
+    typeof window !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent)
+
   const classes = useStyles()
-  const [open, setOpen] = useState(false)
+  const [openMenu, setOpenMenu] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down("md"))
 
   const handleClick: React.MouseEventHandler = event => {
     setAnchorEl(event.currentTarget as HTMLElement)
-    setOpen(true)
+    setOpenMenu(true)
   }
   const handleClose: React.MouseEventHandler = () => {
     setAnchorEl(null)
-    setOpen(false)
+    setOpenMenu(false)
   }
 
   const handleEstimateClick: React.MouseEventHandler = () => {
@@ -182,7 +186,7 @@ export const Header: FC<{
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
-        open={open}
+        open={openMenu}
         MenuListProps={{
           onMouseLeave: handleClose,
         }}
