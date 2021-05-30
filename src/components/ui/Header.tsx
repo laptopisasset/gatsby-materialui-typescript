@@ -19,6 +19,7 @@ import {
   ListItemText,
 } from "@material-ui/core"
 import { Menu as MenuIcon } from "@material-ui/icons"
+import clsx from "clsx"
 
 import { Link } from "../ui"
 
@@ -106,6 +107,20 @@ const useStyles = makeStyles(theme => ({
   menuItemSelected: {
     opacity: 1,
   },
+  drawer: {
+    backgroundColor: theme.palette.common.blue,
+  },
+  drawerItem: {
+    ...theme.typography.tab,
+    color: "white",
+    opacity: 0.7,
+  },
+  drawerItemSelected: {
+    opacity: 1,
+  },
+  drawerItemEstimate: {
+    backgroundColor: theme.palette.common.orange,
+  },
 }))
 
 const decideActiveTab = (curentPath: string) => {
@@ -161,25 +176,6 @@ export const Header: FC<{
     navigate("/estimate")
   }
 
-  const menuList = [
-    {
-      name: "Services",
-      to: "/services",
-    },
-    {
-      name: "Custom Software",
-      to: "/services/customsoftware",
-    },
-    {
-      name: "Mobile App Development",
-      to: "/services/mobileapps",
-    },
-    {
-      name: "Website",
-      to: "/services/websites",
-    },
-  ]
-
   const ariaOwns = anchorEl ? "simple-menu" : undefined
   const ariaHasPopup = anchorEl ? "true" : undefined
 
@@ -206,6 +202,25 @@ export const Header: FC<{
     {
       label: "Contact Us",
       to: "/contact",
+    },
+  ]
+
+  const menuList = [
+    {
+      name: "Services",
+      to: "/services",
+    },
+    {
+      name: "Custom Software",
+      to: "/services/customsoftware",
+    },
+    {
+      name: "Mobile App Development",
+      to: "/services/mobileapps",
+    },
+    {
+      name: "Website",
+      to: "/services/websites",
     },
   ]
 
@@ -258,6 +273,40 @@ export const Header: FC<{
     </>
   )
 
+  const mobileList = [
+    {
+      name: "Home",
+      to: "/",
+      onClick: () => setOpenDrawer(false),
+    },
+    {
+      name: "Services",
+      to: "/services",
+      onClick: () => setOpenDrawer(false),
+    },
+    {
+      name: "The Revolution",
+      to: "/revolution",
+      onClick: () => setOpenDrawer(false),
+    },
+    {
+      name: "About Us",
+      to: "/about",
+      onClick: () => setOpenDrawer(false),
+    },
+    {
+      name: "Contact Us",
+      to: "/contact",
+      onClick: () => setOpenDrawer(false),
+    },
+    {
+      name: "Free Estimate",
+      to: "/estimate",
+      onClick: () => setOpenDrawer(false),
+      className: classes.drawerItemEstimate,
+    },
+  ]
+
   const drawer = (
     <>
       <SwipeableDrawer
@@ -266,8 +315,101 @@ export const Header: FC<{
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
         onOpen={() => setOpenDrawer(true)}
+        classes={{
+          paper: classes.drawer,
+        }}
       >
-        <List></List>
+        <List>
+          {mobileList.map(({ to, onClick, name, className }, index) => (
+            <ListItem
+              key={index}
+              divider
+              button
+              component={Link}
+              to={to}
+              onClick={onClick}
+              className={className}
+              selected={to === location.pathname}
+            >
+              <ListItemText
+                disableTypography
+                className={clsx({
+                  [classes.drawerItem]: true,
+                  [classes.drawerItemSelected]: to === location.pathname,
+                })}
+              >
+                {name}
+              </ListItemText>
+            </ListItem>
+          ))}
+          {/* <ListItem
+            divider
+            button
+            component={Link}
+            to="/"
+            onClick={() => setOpenDrawer(false)}
+          >
+            <ListItemText className={classes.drawerItem} disableTypography>
+              Home
+            </ListItemText>
+          </ListItem>
+          <ListItem
+            divider
+            button
+            component={Link}
+            to="/services"
+            onClick={() => setOpenDrawer(false)}
+          >
+            <ListItemText className={classes.drawerItem} disableTypography>
+              Services
+            </ListItemText>
+          </ListItem>
+          <ListItem
+            divider
+            button
+            component={Link}
+            to="/revolution"
+            onClick={() => setOpenDrawer(false)}
+          >
+            <ListItemText className={classes.drawerItem} disableTypography>
+              The Revolution
+            </ListItemText>
+          </ListItem>
+          <ListItem
+            divider
+            button
+            component={Link}
+            to="/about"
+            onClick={() => setOpenDrawer(false)}
+          >
+            <ListItemText className={classes.drawerItem} disableTypography>
+              About us
+            </ListItemText>
+          </ListItem>
+          <ListItem
+            divider
+            button
+            component={Link}
+            to="/contact"
+            onClick={() => setOpenDrawer(false)}
+          >
+            <ListItemText className={classes.drawerItem} disableTypography>
+              Contact Us
+            </ListItemText>
+          </ListItem>
+          <ListItem
+            divider
+            button
+            component={Link}
+            to="/estimate"
+            onClick={() => setOpenDrawer(false)}
+            className={classes.drawerItemEstimate}
+          >
+            <ListItemText className={classes.drawerItem} disableTypography>
+              Free Estimate
+            </ListItemText>
+          </ListItem> */}
+        </List>
       </SwipeableDrawer>
       <IconButton
         onClick={() => setOpenDrawer(open => !open)}
